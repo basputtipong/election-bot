@@ -79,6 +79,11 @@ func BuildElectionCityEmbed(
 		return cityEmbed
 	}
 
+	cityEmbed.Fields = append(cityEmbed.Fields, &discordgo.MessageEmbedField{
+		Name:  "⏱️ อัพเดทล่าสุด",
+		Value: fmt.Sprintf("เวลา: %s", lastUpdate),
+	})
+
 	provinceList := make(map[string][]PartyResultCons, 0)
 	for _, prov := range partyCons.ResultProvince {
 		sort.Slice(prov.PartyResultCons, func(i, j int) bool {
