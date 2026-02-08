@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-const partyInfoAPI = "https://static-ectreport69.ect.go.th/data/data/refs/info_party_overview.json"
+const partyInfoAPI = "https://raw.githubusercontent.com/basputtipong/election-data/main/data/info_party_overview.json"
 
 type PartyInfoResponse struct {
 	ID      string `json:"id"`

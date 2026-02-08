@@ -17,7 +17,7 @@ type ProvinceInfo struct {
 	Name       string `json:"province"`
 }
 
-var provinceAPI = "https://static-ectreport69.ect.go.th/data/data/refs/info_province.json"
+var provinceAPI = "https://raw.githubusercontent.com/basputtipong/election-data/main/data/info_province.json"
 
 func FetchProvinceInfo() (*ProvinceInfos, error) {
 	resp, err := http.Get(provinceAPI)
