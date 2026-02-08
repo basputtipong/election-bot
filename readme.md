@@ -1,6 +1,10 @@
-#election-bot
+# Election-bot
 
+### instruction
 
-instruction
-#export DISCORD_TOKEN=your_token_here
+```
+export DISCORD_TOKEN=your_token_here
+```
+```
 go run main.go
+```
