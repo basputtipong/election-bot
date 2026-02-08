@@ -66,8 +66,8 @@ func BuildElectionCityEmbed(
 	provinceCode := getProvinceIDByName(provinceName, provinceInfo)
 
 	lastUpdate, _ := time.Parse(time.RFC3339Nano, partyCons.LastUpdate)
-	timeZone, _ := time.LoadLocation("Asia/Bangkok")
-	lastUpdate = lastUpdate.In(timeZone)
+	lastUpdate = lastUpdate.Add(7 * time.Hour)
+	lastUpdateStr := lastUpdate.Format("2006-01-02 15:04:05")
 
 	cityEmbed := &discordgo.MessageEmbed{
 		Title: fmt.Sprintf("🗳️ ผลการนับคะแนนเลือกตั้งจังหวัด: %s", provinceName),
@@ -81,7 +81,7 @@ func BuildElectionCityEmbed(
 
 	cityEmbed.Fields = append(cityEmbed.Fields, &discordgo.MessageEmbedField{
 		Name:  "⏱️ อัพเดทล่าสุด",
-		Value: fmt.Sprintf("เวลา: %s", lastUpdate),
+		Value: fmt.Sprintf("เวลา: %s", lastUpdateStr),
 	})
 
 	provinceList := make(map[string][]PartyResultCons, 0)
