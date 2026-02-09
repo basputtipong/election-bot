@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for election-bot-shy-sea-9845 on 2026-02-09T02:28:05+07:00
+# fly.toml app configuration file generated for election-bot-shy-sea-9845 on 2026-02-09T05:08:50Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'election-bot-shy-sea-9845'
-primary_region = 'sin'
+primary_region = 'iad'
 
 [build]
 
