@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"os/signal"
@@ -41,12 +42,12 @@ func main() {
 				continue
 			}
 
-			log.Println("auto update election result")
+			fmt.Println("auto update election result")
 			sendOrUpdateElection(dg)
 		}
 	}()
 
-	log.Println("🤖 Bot is running")
+	fmt.Println("🤖 Bot is running")
 
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, syscall.SIGINT, syscall.SIGTERM)

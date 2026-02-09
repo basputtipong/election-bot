@@ -28,7 +28,7 @@ func onMessage(s *discordgo.Session, m *discordgo.MessageCreate) {
 		lastMessageIDMain = ""
 		mu.Unlock()
 
-		log.Println("!election command received")
+		fmt.Println("!election command received")
 
 		sendOrUpdateElection(s)
 	} else if strings.HasPrefix(strings.ToLower(m.Content), "!election ") {
@@ -57,27 +57,9 @@ func sendOrUpdateElection(s *discordgo.Session) {
 		return
 	}
 
-	partyCons, err := FetchCons()
+	partyCons, provinceInfo, party, partyInfo, err := getInformationData()
 	if err != nil {
-		log.Println("fetch party cons failed:", err)
-		return
-	}
-
-	provinceInfo, err := FetchProvinceInfo()
-	if err != nil {
-		log.Println("fetch province info failed:", err)
-		return
-	}
-
-	party, err := FetchParty()
-	if err != nil {
-		log.Println("fetch party failed:", err)
-		return
-	}
-
-	partyInfo, err := FetchPartyInfo()
-	if err != nil {
-		log.Println("fetch party info failed:", err)
+		log.Println("get information data failed:", err)
 		return
 	}
 
@@ -117,27 +99,9 @@ func sendElection(s *discordgo.Session, provinceName string) {
 		return
 	}
 
-	partyCons, err := FetchCons()
+	partyCons, provinceInfo, party, partyInfo, err := getInformationData()
 	if err != nil {
-		log.Println("fetch party cons failed:", err)
-		return
-	}
-
-	provinceInfo, err := FetchProvinceInfo()
-	if err != nil {
-		log.Println("fetch province info failed:", err)
-		return
-	}
-
-	party, err := FetchParty()
-	if err != nil {
-		log.Println("fetch party failed:", err)
-		return
-	}
-
-	partyInfo, err := FetchPartyInfo()
-	if err != nil {
-		log.Println("fetch party info failed:", err)
+		log.Println("get information data failed:", err)
 		return
 	}
 
@@ -166,4 +130,32 @@ func sendElection(s *discordgo.Session, provinceName string) {
 	mu.Lock()
 	lastMessageIDCity = msgCity.ID
 	mu.Unlock()
+}
+
+func getInformationData() (*ElectionResponse, *ProvinceInfos, *PartyResponse, []PartyInfoResponse, error) {
+	partyCons, err := FetchCons()
+	if err != nil {
+		log.Println("fetch party cons failed:", err)
+		return nil, nil, nil, nil, err
+	}
+
+	provinceInfo, err := FetchProvinceInfo()
+	if err != nil {
+		log.Println("fetch province info failed:", err)
+		return nil, nil, nil, nil, err
+	}
+
+	party, err := FetchParty()
+	if err != nil {
+		log.Println("fetch party failed:", err)
+		return nil, nil, nil, nil, err
+	}
+
+	partyInfo, err := FetchPartyInfo()
+	if err != nil {
+		log.Println("fetch party info failed:", err)
+		return nil, nil, nil, nil, err
+	}
+
+	return partyCons, provinceInfo, party, partyInfo, nil
 }

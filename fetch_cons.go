@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"time"
 )
@@ -44,13 +43,13 @@ func FetchCons() (*ElectionResponse, error) {
 	body, _ := io.ReadAll(resp.Body)
 
 	if resp.StatusCode != http.StatusOK {
-		log.Printf("fetch failed: status=%d body=%s", resp.StatusCode, string(body))
+		fmt.Printf("fetch failed: status=%d body=%s", resp.StatusCode, string(body))
 		return nil, fmt.Errorf("non-200 response")
 	}
 
 	var data ElectionResponse
 	if err := json.Unmarshal(body, &data); err != nil {
-		log.Printf("json unmarshal error, body=%s", string(body))
+		fmt.Printf("json unmarshal error, body=%s", string(body))
 		return nil, err
 	}
 	return &data, err
