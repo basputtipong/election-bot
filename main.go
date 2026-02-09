@@ -33,7 +33,7 @@ func main() {
 	defer dg.Close()
 
 	go func() {
-		ticker := time.NewTicker(60 * time.Minute)
+		ticker := time.NewTicker(30 * time.Minute)
 		defer ticker.Stop()
 
 		for range ticker.C {
